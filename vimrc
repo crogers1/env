@@ -66,6 +66,7 @@ function! LoadCscope()
   endif
 endfunction
 au BufEnter /* call LoadCscope()
+
 execute pathogen#infect()
 call pathogen#helptags()
 
@@ -73,7 +74,7 @@ autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 
 let NERDTreeGlyphReadOnly=1
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 nnoremap <C-w> <C-w>w
 nnoremap <C-h> <C-w>h
@@ -90,5 +91,14 @@ endfunction
 
 inoremap <C-q> call CloseNerdTree()
 
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
 set lazyredraw
 set ttyfast
+
+filetype plugin indent on
+
+if &term =~ '256color'
+    set t_ut=
+endif
