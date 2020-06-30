@@ -146,8 +146,6 @@ up(){
   cd $d
 }
 
-export GREP_OPTIONS='--color=auto'
-
 alias reload='source ~/.bashrc'
 
 FUNCTIONS+="${CYAN},extract()"
@@ -180,7 +178,7 @@ fxgrep() {
 	if [$# -eq 0]; then
 		echo "fxgrep: No arguments provided."; return
 	else
-		find . -type f | xargs grep -i -n "$*"
+		find . -type f | xargs grep --color=auto -i -n "$*"
 	fi
 }
 
@@ -190,7 +188,7 @@ fgrep() {
 	if [$# -eq 0]; then
 		echo "fgrep: No arguments provided."; return
 	else
-		find . -type f | grep -i -n $*
+		find . -type f | grep --color=auto -i -n $*
 	fi
 }
 
@@ -330,4 +328,4 @@ export DEBEMAIL DEBFULLNAME
 TERM=xterm-256color
 export TERM
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/phoenios/.vimpkg/bin
+eval `gnome-keyring-daemon --start`
