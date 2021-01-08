@@ -1,4 +1,3 @@
-colorscheme badwolf
 syntax enable
 
 set statusline+=%f
@@ -67,14 +66,11 @@ function! LoadCscope()
 endfunction
 au BufEnter /* call LoadCscope()
 
+
 execute pathogen#infect()
+syntax on
+filetype plugin indent on
 call pathogen#helptags()
-
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
-
-let NERDTreeGlyphReadOnly=1
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 nnoremap <C-w> <C-w>w
 nnoremap <C-h> <C-w>h
@@ -82,23 +78,25 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-function! CloseNerdTree()
-  if exists("b:NERDTreeType")  
-	:NERDTree
-	:q
-  endif
-endfunction
-
-inoremap <C-q> call CloseNerdTree()
-
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-
-set lazyredraw
-set ttyfast
-
 filetype plugin indent on
 
 if &term =~ '256color'
     set t_ut=
 endif
+
+autocmd vimenter * NERDTree | wincmd p
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeMinimalUI = 1
+
+set termguicolors
+let g:miramare_enable_italic = 1
+let g:miramare_disable_italic_comment = 1
+let g:miramare_transparent_background = 0
+colorscheme miramare
+
+let g:airline_theme='molokai'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#hunks#enabled=0
+let g:airline#extensions#branch#enabled=1
+
+let g:ycm_autoclose_preview_window_after_completion = 1
